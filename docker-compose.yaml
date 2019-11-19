@@ -39,7 +39,7 @@ services:
       - instavote
 
   worker:
-    image: xxxx/worker:latest
+    image: spurthip/worker:latest
     depends_on:
       - redis
       - db
