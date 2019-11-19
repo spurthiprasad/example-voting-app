@@ -1,0 +1,40 @@
+pipeline {
+  agent any
+
+  tools{
+    maven 'Maven 3.6.2'
+  }
+
+  stages{
+      stage(build){
+          steps{
+              echo 'build'
+              dir('worker'){
+                sh 'mvn compile'
+              }
+          }
+      }
+      stage(test){
+          steps{
+              echo 'test'
+              dir('worker'){
+                sh 'mvn clean test'
+              }
+          }
+      }
+      stage(package){
+          steps{
+              echo 'package'
+              dir('worker'){
+                sh 'mvn package -DskipTests'
+              }
+          }
+      }
+  }
+
+  post{
+    always{
+        echo 'Building multibranch pipeline for worker is completed..'
+    }
+  }
+}
